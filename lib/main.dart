@@ -3,8 +3,11 @@ import 'package:shopping_app/page/food/popular_food_detail.dart';
 import 'package:shopping_app/page/food/recommened_food_detail.dart';
 import 'package:shopping_app/page/home/main_food_page.dart';
 import 'package:get/get.dart';
+import 'package:shopping_app/helper/dependencies.dart' as dep;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   runApp(const MyApp());
 }
 
