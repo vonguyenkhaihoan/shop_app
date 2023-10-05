@@ -9,7 +9,7 @@ class RouterHelper {
   static const String recommendedFood = "/recommend-food";
 
   static String getInital() => '$initial';
-  static String getPopularFood(int pageId) => '$popularFood?pageId=$pageId';
+  static String getPopularFood(/*int pageId*/) => '$popularFood'/*?pageId=$pageId*/;
   static String getRecommendedFood(int pageId) => '$recommendedFood?pageId=$pageId';
 
   static List<GetPage> routes = [
@@ -23,8 +23,8 @@ class RouterHelper {
       
         name: popularFood,
         page: () {
-          var pageId=Get.parameters['pageId'];
-          return PopularFoodDetail(pageId: int.parse(pageId!));
+          // var pageId=Get.parameters['pageId'];
+          return PopularFoodDetail( /*pageId: int.parse(pageId!)*/ );
         },
         transition: Transition.fadeIn),
     GetPage(
