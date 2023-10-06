@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopping_app/controllers/cart_controller.dart';
 import 'package:shopping_app/data/reponsitory/popular_product_repo.dart';
 import 'package:shopping_app/models/product_model.dart';
 import 'package:shopping_app/utils/colors.dart';
@@ -11,6 +12,7 @@ class PopularProductController extends GetxController {
 
   List<dynamic> _popularProductList = [];
   List<dynamic> get popularProductList => _popularProductList;
+  late CartController _cart;
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
@@ -67,7 +69,31 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void initProduct() {
+  void initProduct(CartController cart) {
     _quantity = 0;
+    _inCartItems = 0;
+    _cart = cart;
+  }
+
+  void addItem(ProductModel product) {
+    if (_quantity > 0) {
+      _cart.addItem(product, quantity);
+      _quantity = 0;
+      _cart.items.forEach(
+        (key, value) {
+          print("ID là " +
+              value.id.toString() +
+              "số lượng sản phẩm " +
+              value.quantity.toString());
+        },
+      );
+    } else {
+      Get.snackbar(
+        "Số lượng sản phẩm",
+        "Bạn nên thêm ít nhất một món hàng vào giỏ hàng!",
+        backgroundColor: AppColors.mainColor,
+        colorText: Colors.white,
+      );
+    }
   }
 }
