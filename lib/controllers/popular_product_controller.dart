@@ -22,7 +22,7 @@ class PopularProductController extends GetxController {
   int _inCartItems = 0;
   int get inCartItems => _inCartItems + _quantity;
 
-  //Phương thức nhận danh sách sản phẩm phổ biến ,phuong thuc dieu khien
+  //----Phương thức nhận danh sách sản phẩm phổ biến ,phuong thuc dieu khien-------------
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
     if (response.statusCode == 200) {
@@ -37,7 +37,7 @@ class PopularProductController extends GetxController {
     }
   }
 
-  //############ Hàm làm tăng giảm số lượng ###############
+  //------------ Hàm làm tăng giảm số lượng ---------------
   void setQuantity(bool inIncrement) {
     if (inIncrement) {
       _quantity = checkQuantity(_quantity + 1);
@@ -47,8 +47,9 @@ class PopularProductController extends GetxController {
     update();
   }
 
+//-------------- Kiểm tra số lượng và thông báo --------------
   int checkQuantity(int quantity) {
-    if (quantity < 0) {
+    if ((_inCartItems + quantity) < 0) {
       Get.snackbar(
         "Số lượng sản phẩm",
         "Bạn không thể giảm sản phẩm được nữa",
@@ -57,6 +58,7 @@ class PopularProductController extends GetxController {
       );
       return 0;
     } else if (quantity > 20) {
+      //(_inCartItems + quantity)  để khi có số lượng hiện trên trang chi tiết có thể trừ đi
       Get.snackbar(
         "Số lượng sản phẩm",
         "Bạn không thể thêm sản phẩm được nữa",
@@ -69,31 +71,45 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void initProduct(CartController cart) {
-    _quantity = 0;
+  void initProduct(ProductModel product, CartController cart) {
+    _quantity = 0; //khi vào trang chi tiết số lượng bằng 0
     _inCartItems = 0;
     _cart = cart;
+
+    //--- kiểm tra số lượng sản phẩm có trong giủo hàng khi mà mình xem chi tiết sản phẩm đó ---
+    var exist = _cart.existInCart(product);
+    if (exist) {
+      _inCartItems = _cart.getQuantity(product);
+    }
   }
 
+//---------Thêm sản phẩm ----------
   void addItem(ProductModel product) {
-    if (_quantity > 0) {
-      _cart.addItem(product, quantity);
-      _quantity = 0;
-      _cart.items.forEach(
-        (key, value) {
-          print("ID là " +
-              value.id.toString() +
-              "số lượng sản phẩm " +
-              value.quantity.toString());
-        },
-      );
-    } else {
-      Get.snackbar(
-        "Số lượng sản phẩm",
-        "Bạn nên thêm ít nhất một món hàng vào giỏ hàng!",
-        backgroundColor: AppColors.mainColor,
-        colorText: Colors.white,
-      );
-    }
+    // if (_quantity > 0) {
+    _cart.addItem(product, quantity);
+    _quantity = 0;
+    _inCartItems = _cart.getQuantity(product);
+    _cart.items.forEach(
+      (key, value) {
+        print("ID là " +
+            value.id.toString() +
+            "số lượng sản phẩm " +
+            value.quantity.toString());
+      },
+    );
+    update();
+    // } else {
+    //   Get.snackbar(
+    //     "Số lượng sản phẩm",
+    //     "Bạn nên thêm ít nhất một món hàng vào giỏ hàng!",
+    //     backgroundColor: AppColors.mainColor,
+    //     colorText: Colors.white,
+    //   );
+    // }
+  }
+
+  //------ hàm lấy tổng số vật phẩm -----------
+  int get totalItems {
+    return _cart.totalItems;
   }
 }
