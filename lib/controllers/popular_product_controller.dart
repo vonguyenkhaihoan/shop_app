@@ -41,8 +41,11 @@ class PopularProductController extends GetxController {
   void setQuantity(bool inIncrement) {
     if (inIncrement) {
       _quantity = checkQuantity(_quantity + 1);
+      // print("number of items " + _quantity.toString());
     } else {
       _quantity = checkQuantity(_quantity - 1);
+      // print("number of items decrement" + _quantity.toString());
+
     }
     update();
   }
@@ -56,6 +59,10 @@ class PopularProductController extends GetxController {
         backgroundColor: AppColors.mainColor,
         colorText: Colors.white,
       );
+      if (_inCartItems > 0) {
+        _quantity = -_inCartItems;
+        return _quantity;
+      }
       return 0;
     } else if (quantity > 20) {
       //(_inCartItems + quantity)  để khi có số lượng hiện trên trang chi tiết có thể trừ đi

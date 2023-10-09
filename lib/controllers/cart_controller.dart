@@ -86,7 +86,6 @@ class CartController extends GetxController {
     _items.forEach((key, value) {
       totalQuantity += value.quantity!;
     });
-
     return totalQuantity;
   }
 }

@@ -263,7 +263,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         children: [
           GestureDetector(
             onTap: () {
-              Get.toNamed(RouterHelper.getPopularFood(/*index*/));
+              Get.toNamed(RouterHelper.getPopularFood(index));
             },
             child: Container(
               height: Dimension.pageViewContainer, // kích thước slide

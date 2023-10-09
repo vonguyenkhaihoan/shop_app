@@ -14,16 +14,13 @@ import '../../widgets/icon_and_text_widget.dart';
 import '../../widgets/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  // final int pageId;
-  const PopularFoodDetail({
-    Key? key,
-    /*required this.pageId*/
-  }) : super(key: key);
+  final int pageId;
+  const PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // var product =
-    //     Get.find<PopularProductController>().popularProductList[pageId];
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
     Get.find<PopularProductController>()
         .initProduct(product, Get.find<CartController>());
 
