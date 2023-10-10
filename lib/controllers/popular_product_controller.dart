@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/controllers/cart_controller.dart';
 import 'package:shopping_app/data/reponsitory/popular_product_repo.dart';
+import 'package:shopping_app/models/cart_model.dart';
 import 'package:shopping_app/models/product_model.dart';
 import 'package:shopping_app/utils/colors.dart';
 
@@ -45,7 +46,6 @@ class PopularProductController extends GetxController {
     } else {
       _quantity = checkQuantity(_quantity - 1);
       // print("number of items decrement" + _quantity.toString());
-
     }
     update();
   }
@@ -118,5 +118,10 @@ class PopularProductController extends GetxController {
   //------ hàm lấy tổng số vật phẩm -----------
   int get totalItems {
     return _cart.totalItems;
+  }
+
+  // lấy danh sách vật phẩm trong giỏ hàng 
+  List<CartModel> get getItems {
+    return _cart.getItems;
   }
 }

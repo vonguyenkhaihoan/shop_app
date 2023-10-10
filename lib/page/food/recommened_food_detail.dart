@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopping_app/controllers/cart_controller.dart';
 import 'package:shopping_app/controllers/popular_product_controller.dart';
 import 'package:shopping_app/controllers/recommended_product_controller.dart';
+import 'package:shopping_app/page/cart/cart_page.dart';
 import 'package:shopping_app/routes/routes_helper.dart';
 import 'package:shopping_app/utils/colors.dart';
 import 'package:shopping_app/utils/dimensions.dart';
@@ -47,11 +48,16 @@ class RecommendedFoodDetail extends StatelessWidget {
                             ? Positioned(
                                 right: 0,
                                 top: 0,
-                                child: AppIcon(
-                                  icon: Icons.circle,
-                                  size: 20,
-                                  iconColor: Colors.transparent,
-                                  backgroundColor: AppColors.mainColor,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => CartPage());
+                                  },
+                                  child: AppIcon(
+                                    icon: Icons.circle,
+                                    size: 20,
+                                    iconColor: Colors.transparent,
+                                    backgroundColor: AppColors.mainColor,
+                                  ),
                                 ),
                               )
                             : Container(),

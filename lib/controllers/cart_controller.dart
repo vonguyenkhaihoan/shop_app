@@ -8,7 +8,7 @@ import 'package:shopping_app/utils/colors.dart';
 class CartController extends GetxController {
   final CartRepo cartRepo;
   CartController({required this.cartRepo});
-  Map<int, CartModel> _items = {};
+  Map<int, CartModel> _items = {}; //bảng đồ lưu trữ dữ liệu
 
   Map<int, CartModel> get items => _items;
 
@@ -87,5 +87,13 @@ class CartController extends GetxController {
       totalQuantity += value.quantity!;
     });
     return totalQuantity;
+  }
+
+  // hàm trả về danh sách mô hình giỏ hàng các vật phẩm
+  List<CartModel> get getItems {
+    return _items.entries.map((e) {
+      //entries thuoc tinh nhap cua ban do
+      return e.value;
+    }).toList();
   }
 }
