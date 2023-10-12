@@ -27,6 +27,7 @@ class CartController extends GetxController {
           quantity: value.quantity! + quantity,
           isExist: true,
           time: DateTime.now().toString(),
+          product: product,
         );
       });
       if (totalQuantity <= 0) {
@@ -45,6 +46,7 @@ class CartController extends GetxController {
               quantity: quantity,
               isExist: true,
               time: DateTime.now().toString(),
+              product: product,
             );
           },
         );
@@ -57,6 +59,7 @@ class CartController extends GetxController {
         );
       }
     }
+    update();
   }
 
   //--------- Kiểm tra tồn tại sản phẩm trong giỏ hàng -------------
@@ -89,11 +92,20 @@ class CartController extends GetxController {
     return totalQuantity;
   }
 
-  // hàm trả về danh sách mô hình giỏ hàng các vật phẩm
+  // hàm trả về danh sách  mô hình giỏ hàng mau the các vật phẩm
   List<CartModel> get getItems {
     return _items.entries.map((e) {
       //entries thuoc tinh nhap cua ban do
       return e.value;
     }).toList();
+  }
+
+  //tổng số tiền
+  int get totalAmount {
+    var total = 0;
+    _items.forEach((key, value) {
+      total += value.quantity! * value.price!;
+    });
+    return total;
   }
 }

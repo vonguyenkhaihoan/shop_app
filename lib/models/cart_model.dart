@@ -1,17 +1,14 @@
+import 'package:shopping_app/models/product_model.dart';
+
 class CartModel {
   int? id;
   String? name;
-  // String? description;
   int? price;
-  // int? stars;
   String? img;
-  // String? location;
-  // String? createAt;
-  // String? updateAt;
-  // int? typeId;
   int? quantity;
   bool? isExist;
   String? time;
+  ProductModel? product;
 
   CartModel({
     this.id,
@@ -21,23 +18,18 @@ class CartModel {
     this.quantity,
     this.isExist,
     this.time,
+    this.product,
   });
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    // description = json['description'];
     price = json['price'];
-    // stars = json['stars'];
     img = json['img'];
     quantity = json['quantity'];
     isExist = json['is_exist'];
     time = json['time'];
-
-    // location = json['location'];
-    // createAt = json['create_at'];
-    // updateAt = json['update_at'];
-    // typeId = json['type_id'];
+    product = ProductModel.fromJson(json['product']);
   }
 
   // Map<String, dynamic> toJson() {

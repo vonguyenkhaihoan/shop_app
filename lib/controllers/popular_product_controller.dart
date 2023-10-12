@@ -27,10 +27,10 @@ class PopularProductController extends GetxController {
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
     if (response.statusCode == 200) {
-      // print("get products");
+
       _popularProductList = [];
       _popularProductList.addAll(Product.fromJson(response.body).products);
-      // print(_popularProductList);
+
       _isLoaded = true;
       update();
     } else {
@@ -105,14 +105,7 @@ class PopularProductController extends GetxController {
       },
     );
     update();
-    // } else {
-    //   Get.snackbar(
-    //     "Số lượng sản phẩm",
-    //     "Bạn nên thêm ít nhất một món hàng vào giỏ hàng!",
-    //     backgroundColor: AppColors.mainColor,
-    //     colorText: Colors.white,
-    //   );
-    // }
+    
   }
 
   //------ hàm lấy tổng số vật phẩm -----------
