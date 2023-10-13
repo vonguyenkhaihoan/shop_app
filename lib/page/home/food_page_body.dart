@@ -40,8 +40,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   void dispose() {
-    // super.dispose();
     pageController.dispose(); // xóa cái chỉ mục trang slide để ko tốn bộ nhớ
+    super.dispose();
   }
 
   @override
