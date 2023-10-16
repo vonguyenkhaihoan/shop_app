@@ -27,7 +27,6 @@ class PopularProductController extends GetxController {
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
     if (response.statusCode == 200) {
-
       _popularProductList = [];
       _popularProductList.addAll(Product.fromJson(response.body).products);
 
@@ -84,10 +83,13 @@ class PopularProductController extends GetxController {
     _cart = cart;
 
     //--- kiểm tra số lượng sản phẩm có trong giủo hàng khi mà mình xem chi tiết sản phẩm đó ---
-    var exist = _cart.existInCart(product);
+    var exist = false;
+    exist = _cart.existInCart(product);
+    // print("exist or not " + exist.toString());
     if (exist) {
       _inCartItems = _cart.getQuantity(product);
     }
+    // print("the quantity in the cart is " + _inCartItems.toString());
   }
 
 //---------Thêm sản phẩm ----------
@@ -105,7 +107,6 @@ class PopularProductController extends GetxController {
       },
     );
     update();
-    
   }
 
   //------ hàm lấy tổng số vật phẩm -----------
@@ -113,7 +114,7 @@ class PopularProductController extends GetxController {
     return _cart.totalItems;
   }
 
-  // lấy danh sách vật phẩm trong giỏ hàng 
+  // lấy danh sách vật phẩm trong giỏ hàng
   List<CartModel> get getItems {
     return _cart.getItems;
   }

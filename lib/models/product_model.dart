@@ -19,7 +19,7 @@ class Product {
   Product.fromJson(Map<String, dynamic> json) {
     _totalSize = json['total_size'];
     _typeId = json['type_id'];
-    _offset = json['offset']; 
+    _offset = json['offset'];
     if (json['products'] != null) {
       _products = <ProductModel>[];
       json['products'].forEach((v) {
@@ -75,6 +75,20 @@ class ProductModel {
     createAt = json['create_at'];
     updateAt = json['update_at'];
     typeId = json['type_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": this.id,
+      "name": this.name,
+      "price": this.price,
+      "stars":this.stars,
+      "img": this.img,
+      "location": this.location,
+      "createAt": this.createAt,
+      "updateAt": this.updateAt,
+      "typeId": this.typeId,
+    };
   }
 
   // Map<String, dynamic> toJson() {

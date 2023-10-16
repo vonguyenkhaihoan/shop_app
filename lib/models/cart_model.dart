@@ -32,6 +32,19 @@ class CartModel {
     product = ProductModel.fromJson(json['product']);
   }
 
+  // lấy dổi tượng chuyển thanh json
+  Map<String, dynamic> toJson() {
+    return {
+      "id": this.id,
+      "name": this.name,
+      "price": this.price,
+      "img": this.img,
+      "quantity": this.quantity,
+      "isExist": this.isExist,
+      "time": this.time,
+      "product": this.product!.toJson(),
+    };
+  }
   // Map<String, dynamic> toJson() {
   //   final Map<String, dynamic> data = new Map<String, dynamic>();
   //   data['id'] = this.id;

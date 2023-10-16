@@ -8,9 +8,13 @@ import 'package:shopping_app/utils/colors.dart';
 class CartController extends GetxController {
   final CartRepo cartRepo;
   CartController({required this.cartRepo});
+
   Map<int, CartModel> _items = {}; //bảng đồ lưu trữ dữ liệu
 
   Map<int, CartModel> get items => _items;
+
+/* only for storage and sharepreferences */
+  List<CartModel> storageItems = [];
 
 //----------- Thêm sản phẩm vào giỏ hàng ------------
   void addItem(ProductModel product, int quantity) {
@@ -19,6 +23,7 @@ class CartController extends GetxController {
       _items.update(product.id!, (value) {
         totalQuantity =
             value.quantity! + quantity; //value.quantity đối tượng cũ
+
         return CartModel(
           id: value.id,
           name: value.name,
@@ -59,6 +64,7 @@ class CartController extends GetxController {
         );
       }
     }
+    cartRepo.addToCartList(getItems);
     update();
   }
 
@@ -107,5 +113,30 @@ class CartController extends GetxController {
       total += value.quantity! * value.price!;
     });
     return total;
+  }
+
+  // phương thức lấy dữ liệu giỏ hàng
+  List<CartModel> getCartData() {
+    setCart = cartRepo.getCartList();
+    return storageItems;
+  }
+
+  set setCart(List<CartModel> items) {
+    storageItems = items;
+
+    for (int i = 0; i < storageItems.length; i++) {
+      _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+    }
+  }
+
+  //ham them vao lichj su gio hang
+  void addToHistory() {
+    cartRepo.addToCartHistoryList();
+    clear();
+  }
+
+  void clear() {
+    _items = {};
+    update();
   }
 }
