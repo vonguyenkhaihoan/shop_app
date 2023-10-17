@@ -123,7 +123,7 @@ class CartController extends GetxController {
 
   set setCart(List<CartModel> items) {
     storageItems = items;
-
+    //print("length of cart items " + storageItems.length.toString());
     for (int i = 0; i < storageItems.length; i++) {
       _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
     }
@@ -138,5 +138,11 @@ class CartController extends GetxController {
   void clear() {
     _items = {};
     update();
+  }
+
+  // ham lay danh sach lich su gio hang
+  List<CartModel> getCartHistoryList() {
+    return cartRepo.getCartHistoryList();
+    
   }
 }
