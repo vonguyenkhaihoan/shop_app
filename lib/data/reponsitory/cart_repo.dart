@@ -13,8 +13,7 @@ class CartRepo {
   List<String> cartHistory = [];
 
   void addToCartList(List<CartModel> cartList) {
-    // sharedPreferences.remove(AppConstains.CART_LIST);
-    // sharedPreferences.remove(AppConstains.CART_HISTORY_LIST);
+
     var time = DateTime.now().toString();
     cart = [];
 
@@ -55,7 +54,7 @@ class CartRepo {
   // ham lay danh sach lich su gio hang
   List<CartModel> getCartHistoryList() {
     if (sharedPreferences.containsKey(AppConstains.CART_HISTORY_LIST)) {
-      cartHistory = [];
+      // cartHistory = [];
       cartHistory =
           sharedPreferences.getStringList(AppConstains.CART_HISTORY_LIST)!;
     }
