@@ -13,6 +13,10 @@ class CartRepo {
   List<String> cartHistory = [];
 
   void addToCartList(List<CartModel> cartList) {
+   /* ///---xoa du lieu khi ma tao don hang de test
+   sharedPreferences.remove(AppConstains.CART_LIST);
+    sharedPreferences.remove(AppConstains.CART_HISTORY_LIST);
+    return;*/
 
     var time = DateTime.now().toString();
     cart = [];
@@ -31,7 +35,7 @@ class CartRepo {
     // getCartList();
   }
 
-  // hàm lấy danh sách giỏ hàng
+  //------- hàm lấy danh sách giỏ hàng ----------
   List<CartModel> getCartList() {
     List<String> carts = [];
 
@@ -51,7 +55,7 @@ class CartRepo {
     return cartList;
   }
 
-  // ham lay danh sach lich su gio hang
+  //------------ ham lay danh sach lich su gio hang-----------------
   List<CartModel> getCartHistoryList() {
     if (sharedPreferences.containsKey(AppConstains.CART_HISTORY_LIST)) {
       // cartHistory = [];
@@ -82,7 +86,7 @@ class CartRepo {
         getCartHistoryList().length.toString());
     for (int i = 0; i < getCartHistoryList().length; i++) {
       print("The time for the order is " +
-        getCartHistoryList()[i].time.toString());
+          getCartHistoryList()[i].time.toString());
     }
   }
 

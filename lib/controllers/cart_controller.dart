@@ -98,7 +98,7 @@ class CartController extends GetxController {
     return totalQuantity;
   }
 
-  // hàm trả về danh sách  mô hình giỏ hàng mau the các vật phẩm
+  //---------- hàm trả về danh sách  mô hình giỏ hàng mau the các vật phẩm------------
   List<CartModel> get getItems {
     return _items.entries.map((e) {
       //entries thuoc tinh nhap cua ban do
@@ -106,7 +106,7 @@ class CartController extends GetxController {
     }).toList();
   }
 
-  //tổng số tiền
+  //----------tổng số tiền---------------
   int get totalAmount {
     var total = 0;
     _items.forEach((key, value) {
@@ -115,7 +115,7 @@ class CartController extends GetxController {
     return total;
   }
 
-  // phương thức lấy dữ liệu giỏ hàng
+  //---------- phương thức lấy dữ liệu giỏ hàng --------------
   List<CartModel> getCartData() {
     setCart = cartRepo.getCartList();
     return storageItems;
@@ -129,7 +129,7 @@ class CartController extends GetxController {
     }
   }
 
-  //ham them vao lichj su gio hang
+  //----------- ham them vao lich su gio hang ------------
   void addToHistory() {
     cartRepo.addToCartHistoryList();
     clear();
@@ -140,9 +140,20 @@ class CartController extends GetxController {
     update();
   }
 
-  // ham lay danh sach lich su gio hang
+  //----------- ham lay danh sach lich su gio hang ------------
   List<CartModel> getCartHistoryList() {
     return cartRepo.getCartHistoryList();
-    
+  }
+
+  //-----------  ham thiet lap setItems ------------
+  set setItems(Map<int, CartModel> setItems) {
+    _items = {};
+    _items = setItems;
+  }
+
+  //----------- them vao danh sach gio hang------------------
+  void addToCartList() {
+    cartRepo.addToCartList(getItems);
+    update();
   }
 }
